@@ -1,5 +1,5 @@
 import './App.css'
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 
 export default function App() {
   // state values
@@ -7,6 +7,9 @@ export default function App() {
   const [numbersAllowed, setNumbersAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false)
   const [password, setPassword] = useState("")
+
+  // useRef Hook
+  const passwordCopyRef = useRef(null)
 
   // useCacllBack caches the function and renders only the changes after each call
   const passwordGenerate = useCallback(() => {
@@ -25,7 +28,12 @@ export default function App() {
     setPassword(pass)
   }, [length, numbersAllowed, charAllowed, setPassword])
 
+  const copyPasswordToClipBoard = useCallback(() => {
+    passwordCopyRef.current?.select()
+    window.navigator.clipboard.writeText(password)
+  }, [password])
 
+  // useEffect Hook
   useEffect(() => passwordGenerate(), [length, numbersAllowed, charAllowed, setPassword])
 
   return (
@@ -39,8 +47,13 @@ export default function App() {
             className='outline-none w-full py-1 px-3'
             placeholder='password'
             readOnly
+            ref={passwordCopyRef}
           />
-          <button className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>Copy</button>
+          <button 
+            className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'
+            onClick={copyPasswordToClipBoard}
+            >
+              Copy</button>
         </div>
         <div className='flex text-sm gap-x-2'>
           <div className='flex gap-x-1 items-center'>
@@ -48,7 +61,7 @@ export default function App() {
               type="range"
               className=''
               min={8}
-              max={50}
+              max={30}
               value={length}
               onChange={(e) => setLength(e.currentTarget.value)}
             />
