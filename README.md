@@ -5,6 +5,20 @@ It allows users to quickly generate secure passwords with customizable options �
 
 ---
 
+## 🌐 Live Demo
+
+🚀 **Generate your password here:**  
+👉 https://password-generator-react-chai.vercel.app/
+
+---
+
+## 📸 Screenshots
+
+### Generate Password
+<img src="./screenshots/password-generator.png" alt="Password Generator" />
+
+---
+
 ## 🚀 Features
 
 - 🧠 Generate passwords with configurable criteria: length, inclusion of numbers, symbols, uppercase/lowercase letters  
